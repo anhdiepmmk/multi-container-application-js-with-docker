@@ -1,0 +1,90 @@
+#!/bin/bash
+
+run () {
+   docker stop frontend-react-app || true
+   docker run -itd --rm --name frontend-react-app -p 3001:80 anhdiepmmk/frontend-react-app:latest
+   docker stop backend-node-app || true
+   docker run -itd --rm --name backend-node-app anhdiepmmk/backend-node-app:latest
+}
+
+start () {
+  docker start frontend-react-app || true
+  docker start backend-node-app || true
+}
+
+stop () {
+  docker stop frontend-react-app || true
+  docker stop backend-node-app || true
+}
+
+build () {
+  cd ./backend
+  docker build -t anhdiepmmk/backend-node-app:latest .
+  cd ../frontend
+  docker build -t anhdiepmmk/frontend-react-app:latest .
+  cd ../
+}
+
+push () {
+  USERNAME=$(docker system info | grep Usernamee)
+  if [ ! -z "$USERNAME" ]
+  then
+   docker push anhdiepmmk/backend-node-app
+   docker push anhdiepmmk/frontend-react-app:latest
+  else
+    echo "Oops! It's seem you are not login to hub.docker.io. Let use run docker login --help to see instruction"
+  fi
+}
+
+logs () {
+  docker logs $1 -f
+}
+
+help () {
+  echo "
+    Usage:  ./cli COMMAND
+
+    Manage networks
+
+    Commands:
+      run                  Run all needed container
+      start                Start all needed container
+      stop                 Stop all needed container
+      logs CONTAINER_NAME  Display logs
+      build                Build image from Dockerfile
+      push                 Publish image to registry
+
+    Run './cli --help' for more information on a command.
+  "
+}
+
+case $1 in
+  "run")
+    run
+    exit
+    ;;
+  "start")
+    start
+    exit
+    ;;
+  "stop")
+    stop
+    exit
+    ;;
+  "logs")
+    logs $2
+    exit
+    ;;
+  "build")
+    build
+    exit
+    ;;
+  "push")
+    push
+    exit
+    ;;
+  *)
+    help
+    exit
+    ;;
+esac
