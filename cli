@@ -1,18 +1,24 @@
 #!/bin/bash
 
 run () {
+   docker network create anhdiepmmk
+   docker stop mongodb1 || true
+   docker run --network anhdiepmmk --name mongodb1 --rm -itd -p 27017:27017 mongo:4.4.4
    docker stop frontend-react-app || true
-   docker run -itd --rm --name frontend-react-app -p 3001:80 anhdiepmmk/frontend-react-app:latest
+   docker run --network anhdiepmmk -itd --rm --name frontend-react-app -p 3001:80 anhdiepmmk/frontend-react-app:latest
    docker stop backend-node-app || true
-   docker run -itd --rm --name backend-node-app anhdiepmmk/backend-node-app:latest
+   docker run --network anhdiepmmk -itd --rm --name backend-node-app -p 3002:3000 anhdiepmmk/backend-node-app:latest
+   docker ps
 }
 
 start () {
+  docker start mongodb1 || true
   docker start frontend-react-app || true
   docker start backend-node-app || true
 }
 
 stop () {
+  docker stop mongodb1 || true
   docker stop frontend-react-app || true
   docker stop backend-node-app || true
 }
