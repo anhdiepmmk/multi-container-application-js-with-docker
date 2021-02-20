@@ -5,7 +5,7 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-int
 # Get all running pods
 kubectl get pods
 kubectl get pods --watch
-
+kubectl get pods --namespace development
 # View logs by pod name in mode following
 kubectl logs httpd-1 -f
 
@@ -20,7 +20,7 @@ kubectl delete -f deployment.yml
 
 # Get all service
 kubectl get services
-
+kubectl get services --namespace development
 # Get deployment runtime configuration yaml
 kubectl get deployment nginx-deployment -o yaml
 
@@ -52,3 +52,12 @@ minikube addons enable ingress
 
 # Edit runtime configuration
 kubectl edit service httpd-service
+
+# Namespace
+kubectl get ns
+kubectl get namespace
+kubectl get namespaces
+
+# Get context
+kubectl config get-contexts
+kubectl config set-context --current --namespace=development

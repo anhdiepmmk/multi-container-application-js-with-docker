@@ -1,7 +1,15 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: development
+  labels:
+    name: development
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: reactjs-deployment
+  namespace: development
 spec:
   replicas: 2
   selector:
@@ -26,6 +34,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: reactjs-service
+  namespace: development
 spec:
   type: NodePort
   ports:
