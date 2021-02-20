@@ -14,4 +14,7 @@ COPY --chown=node:node . .
 
 EXPOSE 3000
 
+ENV MONGODB_USERNAME goals
+ENV MONGODB_PASSWORD goals2123
+
 CMD ["npm", "run", "start:dev"]
