@@ -4,6 +4,7 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-int
 
 # Get all running pods
 kubectl get pods
+kubectl get pods --watch
 
 # View logs by pod name in mode following
 kubectl logs httpd-1 -f
