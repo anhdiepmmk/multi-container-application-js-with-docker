@@ -44,6 +44,8 @@ minikube ip
 minikube service list
 minikube service nginx-service
 minikube service nginx-service --url
+minikube addons list | grep ingress
+minikube addons enable ingress
 
 # Edit runtime configuration
 kubectl edit service httpd-service
