@@ -12,7 +12,11 @@ spec:
     ports:
     - containerPort: 80
     terminationMessagePath: "/tmp/k8s/httpd-1.log"
-    command: ["httpd-foreground"]
+    command: ["/bin/sh","-c"]
+    args:
+      - echo 'httpd-1' > /usr/local/apache2/htdocs/index.html;
+        httpd-foreground
+    # command: ["httpd-foreground"]
     imagePullPolicy: IfNotPresent
   restartPolicy: OnFailure
 ---
@@ -30,7 +34,10 @@ spec:
     ports:
     - containerPort: 80
     terminationMessagePath: "/tmp/k8s/httpd-2.log"
-    command: ["httpd-foreground"]
+    command: ["/bin/sh","-c"]
+    args:
+      - echo 'httpd-2' > /usr/local/apache2/htdocs/index.html;
+        httpd-foreground
     imagePullPolicy: IfNotPresent
   restartPolicy: OnFailure
 ---
