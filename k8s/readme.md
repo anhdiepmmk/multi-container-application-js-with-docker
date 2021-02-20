@@ -44,3 +44,6 @@ minikube ip
 minikube service list
 minikube service nginx-service
 minikube service nginx-service --url
+
+# Edit runtime configuration
+kubectl edit service httpd-service
