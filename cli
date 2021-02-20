@@ -10,7 +10,9 @@ run () {
    -e MONGO_INITDB_ROOT_PASSWORD=goals2123 \
    mongo:4.4.4
    docker stop frontend-react-app || true
-   docker run --network goals-net -itd --rm --name frontend-react-app -p 3001:80 anhdiepmmk/frontend-react-app:latest
+   docker run --network goals-net -itd --rm --name frontend-react-app \
+   -v "$(pwd)/frontend:/app" -v /app/node_modules \
+   -p 3001:3000 anhdiepmmk/frontend-react-app:latest
    docker stop backend-node-app || true
    docker run --network goals-net -itd --rm --name backend-node-app \
    -v "$(pwd)/backend:/app" -v /app/node_modules \
@@ -34,7 +36,7 @@ build () {
   cd ./backend
   docker build -t anhdiepmmk/backend-node-app:latest -f Dockerfile.dev .
   cd ../frontend
-  docker build -t anhdiepmmk/frontend-react-app:latest .
+  docker build -t anhdiepmmk/frontend-react-app:latest -f Dockerfile.dev .
   cd ../
 }
 
