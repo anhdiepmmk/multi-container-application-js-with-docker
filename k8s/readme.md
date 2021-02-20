@@ -36,6 +36,8 @@ kubectl describe deployment nginx-deployment
 # Exec to pod by name
 kubectl exec --stdin --tty nginx-deployment-66b6c48dd5-5l78d -- /bin/bash
 kubectl exec -it httpd-1 -- bash
+# Exec to pod by name in case we have many containers
+kubectl exec -it two-containers -c <container name> -- /bin/bash
 
 # Get minikube ip
 minikube ip
