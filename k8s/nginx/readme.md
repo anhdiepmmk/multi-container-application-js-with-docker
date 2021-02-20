@@ -5,6 +5,9 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-int
 # Get all running pods
 kubectl get pods
 
+# View logs by pod name in mode following
+kubectl logs httpd-1 -f
+
 # Get all deployment
 kubectl get deployment
 
@@ -32,6 +35,7 @@ kubectl describe deployment nginx-deployment
 
 # Exec to pod by name
 kubectl exec --stdin --tty nginx-deployment-66b6c48dd5-5l78d -- /bin/bash
+kubectl exec -it httpd-1 -- bash
 
 # Get minikube ip
 minikube ip
