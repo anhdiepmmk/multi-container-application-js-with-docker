@@ -6,6 +6,7 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-int
 kubectl get pods
 kubectl get pods --watch
 kubectl get pods --namespace development
+kubectl get pods --show-labels
 # View logs by pod name in mode following
 kubectl logs httpd-1 -f
 
@@ -26,6 +27,7 @@ kubectl get deployment nginx-deployment -o yaml
 
 # Get pod runtime configuration yaml
 kubectl get pod nginx-deployment-66b6c48dd5-5l78d -o yaml
+kubectl get pod/reactjs-deployment-76cb6dd6d7-hlzp5 -o yaml
 
 # Describe pods by name
 kubectl describe pods nginx-deployment-66b6c48dd5-5l78d
@@ -61,3 +63,14 @@ kubectl get namespaces
 # Get context
 kubectl config get-contexts
 kubectl config set-context --current --namespace=development
+
+# Scale - HPA (HorizontalPodAutoscaler)
+# https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+kubectl get hpa
+kubectl get hpa/php-apache -o yaml
+kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80
+kubectl autoscale deployment foo --min=2 --max=10
+kubectl scale --replicas=4 deployment/reactjs-deployment
+kubectl scale --replicas=4 rs/reactjs-deployment
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
