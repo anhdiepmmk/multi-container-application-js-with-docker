@@ -39,3 +39,4 @@ minikube ip
 # Get service list
 minikube service list
 minikube service nginx-service
+minikube service nginx-service --url
