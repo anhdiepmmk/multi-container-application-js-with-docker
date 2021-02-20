@@ -9,6 +9,11 @@ spec:
   containers:
   - name: httpd
     image: httpd:2.4.46
+    env: # an example environment variables
+    - name: DEMO_GREETING
+      value: "Hello from the environment"
+    - name: DEMO_FAREWELL
+      value: "Such a sweet sorrow"
     ports:
     - containerPort: 80
     terminationMessagePath: "/tmp/k8s/httpd-1.log"

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-hello
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: node-hello
+    image: gcr.io/google-samples/node-hello:1.0
+    ports:
+    - containerPort: 3000
+    env:
+    - name: PORT
+      value: "3000" # cannot use integer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-hello-service
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+    nodePort: 30002
+  selector:
+    purpose: demonstrate-envars
+  type: LoadBalancer
