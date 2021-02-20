@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-assignment-deployment
+  labels:
+    app: node-app-assignment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-app-assignment
+  template:
+    metadata:
+      labels:
+        app: node-app-assignment
+    spec:
+      containers:
+      - name: node-app-assignment
+        image: anhdiepmmk/node-app-assignment:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-assignment-service
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: node-app-assignment
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: node-app-assignment-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: hello-world.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: node-app-assignment-service
+                port:
+                  number: 80
