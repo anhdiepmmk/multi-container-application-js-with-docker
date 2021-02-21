@@ -1,0 +1,56 @@
+#!/bin/bash
+
+help () {
+  echo "
+    Usage:  ./cli-compose COMMAND
+
+    Manage networks
+
+    Commands:
+      up                   Create and start containers
+      down                 Stop and remove containers, networks, images, and volumes
+      logs                 View output from containers
+      build                Build or rebuild services
+
+    Run './cli-compose --help' for more information on a command.
+  "
+}
+
+up () {
+  echo 'up'
+}
+
+down () {
+  echo 'down'
+}
+
+logs () {
+  echo 'logs'
+}
+
+logs () {
+  echo 'build'
+}
+
+case $1 in
+  "up")
+    up
+    exit
+    ;;
+  "down")
+    down
+    exit
+    ;;
+  "logs")
+    logs
+    exit
+    ;;
+  "build")
+    build
+    exit
+    ;;
+  *)
+    help
+    exit
+    ;;
+esac

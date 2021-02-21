@@ -1,0 +1,46 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb1
+    image: mongo:4.4.4
+    ports:
+      - "27017:27017"
+    env_file:
+      - ./env/mongo.env
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=goals
+    #   - MONGO_INITDB_ROOT_PASSWORD=goals2123
+    volumes:
+      - ./data/mongo:/data/db
+    networks:
+      - goals-net
+  backend:
+    container_name: backend-node-app
+    image: anhdiepmmk/backend-node-app:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3002:3000"
+    networks:
+      - goals-net
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+  frontend:
+    tty: true
+    container_name: frontend-react-app
+    image: anhdiepmmk/frontend-react-app:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3000"
+    networks:
+      - goals-net
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+networks:
+  goals-net:
+    external: true
