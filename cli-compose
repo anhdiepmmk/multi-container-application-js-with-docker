@@ -17,36 +17,36 @@ help () {
 }
 
 up () {
-  echo 'up'
+  docker-compose up $1
 }
 
 down () {
-  echo 'down'
+  docker-compose down $1
 }
 
 logs () {
-  echo 'logs'
+  docker-compose logs $1
 }
 
-logs () {
-  echo 'build'
+build () {
+  docker-compose build $1
 }
 
 case $1 in
   "up")
-    up
+    up $2
     exit
     ;;
   "down")
-    down
+    down $2
     exit
     ;;
   "logs")
-    logs
+    logs $2
     exit
     ;;
   "build")
-    build
+    build $2
     exit
     ;;
   *)

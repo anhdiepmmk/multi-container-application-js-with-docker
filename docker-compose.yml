@@ -20,6 +20,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
+    env_file:
+      - ./env/backend.env
     ports:
       - "3002:3000"
     networks:
@@ -27,7 +29,10 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    depends_on:
+      - mongodb
   frontend:
+    stdin_open: true
     tty: true
     container_name: frontend-react-app
     image: anhdiepmmk/frontend-react-app:latest
@@ -41,6 +46,8 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+    depends_on:
+      - backend
 networks:
   goals-net:
     external: true
