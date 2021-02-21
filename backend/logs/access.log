@@ -2,3 +2,4 @@
 ::ffff:172.22.0.1 - - [21/Feb/2021:10:26:49 +0000] "GET /goals HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
 ::ffff:172.22.0.1 - - [21/Feb/2021:10:26:50 +0000] "OPTIONS /goals/60313c4186d464001870e4a0 HTTP/1.1" 200 6 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
 ::ffff:172.22.0.1 - - [21/Feb/2021:10:26:50 +0000] "DELETE /goals/60313c4186d464001870e4a0 HTTP/1.1" 200 27 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
+::ffff:172.22.0.1 - - [21/Feb/2021:10:32:21 +0000] "GET /goals HTTP/1.1" 200 69 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"

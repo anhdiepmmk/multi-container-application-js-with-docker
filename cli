@@ -2,20 +2,19 @@
 
 run () {
    docker network create goals-net
-   docker stop mongodb1 || true
+   docker stop mongodb1 || docker rmi mongodb1 || true
    docker run --network goals-net --name mongodb1 \
-   -u $(id -u):$(id -g) \
    --rm -itd -v "$(pwd)/data/mongo:/data/db" \
    -p 27017:27017 \
    -e MONGO_INITDB_ROOT_USERNAME=goals \
    -e MONGO_INITDB_ROOT_PASSWORD=goals2123 \
    mongo:4.4.4
-   docker stop frontend-react-app || true
+   docker stop frontend-react-app || docker rmi frontend-react-app || true
    docker run --network goals-net -itd --rm --name frontend-react-app \
    -u $(id -u):$(id -g) \
    -v "$(pwd)/frontend:/app" -v /app/node_modules \
    -p 3001:3000 anhdiepmmk/frontend-react-app:latest
-   docker stop backend-node-app || true
+   docker stop backend-node-app || docker rmi backend-node-app || true
    docker run --network goals-net -itd --rm --name backend-node-app \
    -u $(id -u):$(id -g) \
    -v "$(pwd)/backend:/app" -v /app/node_modules \
