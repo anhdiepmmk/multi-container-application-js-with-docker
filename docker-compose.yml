@@ -15,6 +15,7 @@ services:
     networks:
       - goals-net
   backend:
+    user: "${UID}:${GID}"
     container_name: backend-node-app
     image: anhdiepmmk/backend-node-app:latest
     build:
